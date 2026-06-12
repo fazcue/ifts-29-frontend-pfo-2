@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nómada Viajes — Cada destino, una historia.</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Free 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ========== RESET & VARIABLES SYSTEM (8px Grid) ========== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Brand Identity Colors */
+            --color-primary: #1A6B5A;
+            --color-accent: #F4A261;
+            --color-bg: #0C1B26;
+            --color-surface: #112233;
+            --color-text: #F2F7F5;
+            --color-text-secondary: #85AEAD;
+            --color-border: #1C3040;
+            --color-footer-bg: #060E15;
+            
+            /* Typography */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Responsive Padding (Multiples of 8) */
+            --section-padding-mobile: 64px;
+            --section-padding-desktop: 96px;
+            --max-width: 1200px;
+            --content-padding: 24px;
+            
+            /* Border Radius & Animation Spacing */
+            --border-radius: 16px;
+            --border-radius-pill: 999px;
+            --transition: all 0.25s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Typography Presets */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+            transition: var(--transition);
+        }
+
+        /* ========== UTILITY & LAYOUT (8px Spacing) ========== */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--content-padding);
+        }
+
+        .section {
+            padding: var(--section-padding-mobile) 0;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: var(--section-padding-desktop) 0;
+            }
+        }
+
+        .section-center {
+            text-align: center;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 24px;
+            border-radius: var(--border-radius-pill);
+            background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+                        linear-gradient(to right, var(--color-primary), var(--color-accent)) border-box;
+            border: 1px solid transparent;
+            color: var(--color-accent);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .section-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            max-width: 560px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ========== SECCIÓN 1: CABECERA (Header) ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: rgba(12, 27, 38, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid rgba(28, 48, 64, 0.5);
+            padding: 8px 0;
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-text);
+            white-space: nowrap;
+        }
+
+        .header-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .header-nav a {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .header-nav a:hover,
+        .header-nav a.active {
+            color: var(--color-text);
+            background: rgba(26, 107, 90, 0.15);
+        }
+
+        .header-cta {
+            padding: 8px 24px;
+            border-radius: var(--border-radius-pill);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #ffffff;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(26, 107, 90, 0.3);
+            display: none;
+        }
+
+        .header-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(26, 107, 90, 0.5);
+        }
+
+        .header-hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            color: var(--color-text);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .header-hamburger:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 767px) {
+            .header-nav {
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(12, 27, 38, 0.98);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 32px 24px;
+                gap: 16px;
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+                border-top: 1px solid var(--color-border);
+                
+                /* Smooth transition */
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-24px);
+                transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            }
+
+            .header-nav.activo {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .header-nav a {
+                font-size: 1.125rem;
+                padding: 16px 16px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .header-cta {
+                display: inline-block;
+            }
+
+            .header-hamburger {
+                display: none;
+            }
+        }
+
+        /* ========== SECCIÓN 2: HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+
+        /* Animated radial layers background */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-color: var(--color-bg);
+            overflow: hidden;
+        }
+
+        .hero-bg-circle-1 {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 107, 90, 0.35) 0%, rgba(26, 107, 90, 0) 70%);
+            filter: blur(60px);
+            animation: drift 25s infinite alternate ease-in-out;
+        }
+
+        .hero-bg-circle-2 {
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(244, 162, 97, 0.15) 0%, rgba(244, 162, 97, 0) 70%);
+            filter: blur(80px);
+            animation: drift 30s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(5%, 10%) scale(1.1);
+            }
+            100% {
+                transform: translate(-5%, -5%) scale(0.9);
+            }
+        }
+
+        .hero-decorative {
+            position: absolute;
+            right: -5%;
+            bottom: -5%;
+            width: 55%;
+            max-width: 500px;
+            opacity: 0.12;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-decorative svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Pulsing destinations map */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pulse {
+            transform-origin: center;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @media (min-width: 768px) {
+            .hero-decorative {
+                right: 0;
+                bottom: -5%;
+                width: 40%;
+                opacity: 0.16;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero-decorative {
+                width: 35%;
+                opacity: 0.18;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 820px;
+            padding: 0 var(--content-padding);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            padding: 8px 24px;
+            border-radius: var(--border-radius-pill);
+            background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+                        linear-gradient(to right, var(--color-primary), var(--color-accent)) border-box;
+            border: 1px solid transparent;
+            color: var(--color-accent);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--color-text);
+        }
+
+        .hero p {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            max-width: 540px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: var(--border-radius-pill);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(26, 107, 90, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 28px rgba(26, 107, 90, 0.5);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: var(--border-radius-pill);
+            border: 1px solid var(--color-border);
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            background: transparent;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--color-primary);
+            color: var(--color-text);
+            background: rgba(26, 107, 90, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ========== SECCIÓN 3: DESCRIPCIÓN / SOBRE NOSOTROS ========== */
+        .about {
+            background-color: var(--color-surface);
+        }
+
+        .about-text {
+            max-width: 700px;
+            margin: 0 auto 56px;
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(26, 107, 90, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 1.75rem;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            margin-top: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .stat-number {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* ========== SECCIÓN 4: SERVICIOS ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(26, 107, 90, 0.18);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .service-card p {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ========== SECCIÓN 5: TESTIMONIOS ========== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(26, 107, 90, 0.12);
+        }
+
+        .testimonial-stars {
+            color: var(--color-accent);
+            font-size: 0.9375rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-card blockquote {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 auto 16px;
+        }
+
+        .testimonial-author {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .testimonial-detail {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            margin-top: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ========== SECCIÓN 6: FORMULARIO DE CONTACTO ========== */
+        .contacto-seccion {
+            background-color: var(--color-bg);
+        }
+
+        .contact-form {
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+        }
+
+        .contact-form.hidden {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .contact-form label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(133, 174, 173, 0.5);
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(26, 107, 90, 0.15);
+        }
+
+        .contact-form input.error,
+        .contact-form select.error,
+        .contact-form textarea.error {
+            border-color: #E74C3C;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+        }
+
+        .contact-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2385AEAD' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            cursor: pointer;
+        }
+
+        .contact-form select option {
+            background: var(--color-bg);
+            color: var(--color-text);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px 32px;
+            border-radius: var(--border-radius-pill);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(26, 107, 90, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(26, 107, 90, 0.45);
+        }
+
+        .contact-success {
+            display: none;
+            text-align: center;
+            padding: 40px 32px;
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+        }
+
+        .contact-success.visible {
+            display: block;
+        }
+
+        .contact-success-icon {
+            font-size: 3rem;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+        }
+
+        .contact-success p {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            color: var(--color-accent);
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        /* ========== SECCIÓN 7: PIE DE PÁGINA (Footer) ========== */
+        .footer {
+            background-color: var(--color-footer-bg);
+            padding: 64px 0 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-brand .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .footer-brand .footer-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-slogan {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-style: italic;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            background: rgba(244, 162, 97, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid var(--color-border);
+            margin: 40px 0 0;
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+
+        /* ========== SCROLL REVEAL ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Escalonamiento de tarjetas en Grid */
+        .services-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+        .services-grid .reveal:nth-child(2) { transition-delay: 100ms; }
+        .services-grid .reveal:nth-child(3) { transition-delay: 200ms; }
+        .services-grid .reveal:nth-child(4) { transition-delay: 300ms; }
+        .services-grid .reveal:nth-child(5) { transition-delay: 400ms; }
+        .services-grid .reveal:nth-child(6) { transition-delay: 500ms; }
+
+        .testimonials-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+        .testimonials-grid .reveal:nth-child(2) { transition-delay: 100ms; }
+        .testimonials-grid .reveal:nth-child(3) { transition-delay: 200ms; }
+
+        .about-stats .reveal:nth-child(1) { transition-delay: 0ms; }
+        .about-stats .reveal:nth-child(2) { transition-delay: 100ms; }
+        .about-stats .reveal:nth-child(3) { transition-delay: 200ms; }
+
+        /* Custom Selection Colors */
+        ::selection {
+            background-color: var(--color-primary);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== SECCIÓN 1: CABECERA ========== -->
+    <header class="header" id="inicio">
+        <div class="container">
+            <a href="#inicio" class="header-logo" aria-label="Nómada Viajes — Inicio">
+                <!-- Compass stylized SVG -->
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="16" cy="16" r="14" stroke="var(--color-accent)" stroke-width="2"/>
+                    <circle cx="16" cy="16" r="11" stroke="var(--color-accent)" stroke-width="1" stroke-dasharray="2 2"/>
+                    <path d="M16 4L19 13L16 16L13 13Z" fill="var(--color-accent)"/>
+                    <path d="M16 28L13 19L16 16L19 19Z" fill="var(--color-primary)"/>
+                    <circle cx="16" cy="16" r="2" fill="var(--color-text)"/>
+                </svg>
+                <span>Nómada Viajes</span>
+            </a>
+
+            <nav class="header-nav" id="main-nav" aria-label="Navegación principal">
+                <a href="#destinos">Destinos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#testimonios">Testimonios</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <a href="#contacto" class="header-cta">Reservar Ahora</a>
+
+            <button class="header-hamburger" id="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span aria-hidden="true">☰</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ========== SECCIÓN 2: HERO SECTION ========== -->
+        <section class="hero" id="destinos">
+            <div class="hero-bg" aria-hidden="true">
+                <div class="hero-bg-circle-1"></div>
+                <div class="hero-bg-circle-2"></div>
+            </div>
+
+            <!-- Stylized mapamundi SVG illustration -->
+            <div class="hero-decorative" aria-hidden="true">
+                <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="250" cy="250" r="200" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <circle cx="250" cy="250" r="160" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.2"/>
+                    <circle cx="250" cy="250" r="120" stroke="var(--color-primary)" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+                    <path d="M50 250 H450" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.25"/>
+                    <path d="M250 50 V450" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.25"/>
+                    <path d="M100 250 C100 120, 400 120, 400 250" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.2"/>
+                    <path d="M100 250 C100 380, 400 380, 400 250" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.2"/>
+                    <ellipse cx="250" cy="250" rx="200" ry="80" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.2"/>
+                    <ellipse cx="250" cy="250" rx="80" ry="200" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.2"/>
+                    <path d="M150 180 Q250 100 350 180" stroke="var(--color-accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.6"/>
+                    <path d="M120 280 Q250 360 380 280" stroke="var(--color-accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.6"/>
+                    <circle cx="150" cy="180" r="6" fill="var(--color-accent)" class="pulse"/>
+                    <circle cx="350" cy="180" r="6" fill="var(--color-accent)" class="pulse"/>
+                    <circle cx="120" cy="280" r="6" fill="var(--color-accent)" class="pulse"/>
+                    <circle cx="380" cy="280" r="6" fill="var(--color-accent)" class="pulse"/>
+                    <circle cx="250" cy="150" r="5" fill="var(--color-primary)"/>
+                    <circle cx="290" cy="310" r="5" fill="var(--color-primary)"/>
+                </svg>
+            </div>
+
+            <div class="hero-content">
+                <span class="hero-badge">✦ Experiencias de viaje a medida desde 2009</span>
+                <h1>El mundo te espera.<br>Nosotros te llevamos.</h1>
+                <p>Diseñamos itinerarios únicos en más de 80 destinos. Viajá con propósito, viajá con Nómada.</p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn-primary">
+                        Explorar Destinos
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="#nosotros" class="btn-ghost">
+                        <i class="fa-solid fa-compass" aria-hidden="true"></i>
+                        Conocer Más ↓
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECCIÓN 3: DESCRIPCIÓN / SOBRE NOSOTROS ========== -->
+        <section class="about section section-center" id="nosotros">
+            <div class="container">
+                <span class="section-badge">Nuestra historia</span>
+                <h2 class="section-title">Quiénes somos</h2>
+                <p class="about-text">
+                    Nómada Viajes nació en 2009 con la convicción de que viajar es mucho más que cambiar de aire: es transformarse. 
+                    Somos una agencia boutique que diseña itinerarios a medida para quienes buscan experiencias auténticas, 
+                    lejos del turismo masivo. Cada destino que tocamos lo hacemos con respeto, curiosidad y atención obsesiva por los detalles. 
+                    Detrás de cada viaje hay un equipo de apasionados que escucha, sueña y construye junto a vos.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i></div>
+                        <div class="stat-number" data-target="80" data-prefix="+" data-suffix="">0</div>
+                        <p class="stat-label">Destinos en 5 continentes</p>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+                        <div class="stat-number" data-target="12000" data-prefix="+" data-suffix="">0</div>
+                        <p class="stat-label">Viajeros satisfechos</p>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-icon"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+                        <div class="stat-number" data-target="15" data-prefix="" data-suffix=" años">0</div>
+                        <p class="stat-label">Creando experiencias</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECCIÓN 4: SECCIÓN DE SERVICIOS O CARACTERÍSTICAS PRINCIPALES ========== -->
+        <section class="section section-center" id="servicios">
+            <div class="container">
+                <span class="section-badge">Qué ofrecemos</span>
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <p class="section-subtitle">Todo lo que necesitás para un viaje sin preocupaciones.</p>
+                <div class="services-grid">
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+                        <h3>Paquetes Internacionales</h3>
+                        <p>Armamos paquetes completos a medida con vuelos, alojamiento y actividades en los cinco continentes.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-person-hiking" aria-hidden="true"></i></div>
+                        <h3>Viajes de Aventura</h3>
+                        <p>Trekking, safaris, expediciones y actividades de naturaleza para los viajeros más intrépidos.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-heart" aria-hidden="true"></i></div>
+                        <h3>Viajes Románticos</h3>
+                        <p>Lunas de miel y escapadas en pareja diseñadas para crear recuerdos que duran toda la vida.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+                        <h3>Tours Grupales</h3>
+                        <p>Grupos pequeños con guías especializados para una experiencia íntima y enriquecedora.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-ship" aria-hidden="true"></i></div>
+                        <h3>Cruceros y Navegación</h3>
+                        <p>Itinerarios fluviales y marítimos por los destinos más icónicos y los más secretos del mundo.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+                        <h3>Asistencia de Viaje</h3>
+                        <p>Acompañamiento permanente antes, durante y después de tu viaje para que no estés solo en ningún momento.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECCIÓN 5: TESTIMONIOS O RESEÑAS DE CLIENTES ========== -->
+        <section class="section section-center" id="testimonios">
+            <div class="container">
+                <span class="section-badge">Experiencias reales</span>
+                <h2 class="section-title">Lo que dicen nuestros viajeros</h2>
+                <p class="section-subtitle">Historias de quienes confiaron en nosotros para hacer realidad sus viajes soñados.</p>
+                <div class="testimonials-grid">
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-stars" aria-label="Calificación de 5 estrellas">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>
+                            "Viajamos con Nómada para nuestra luna de miel a Islandia y fue perfecto. Cada detalle estuvo cuidado al máximo. Volvimos transformados."
+                        </blockquote>
+                        <div class="testimonial-avatar" aria-hidden="true">ML</div>
+                        <p class="testimonial-author">Martina López y Rodrigo Cano</p>
+                        <p class="testimonial-detail">Luna de Miel en Islandia</p>
+                    </article>
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-stars" aria-label="Calificación de 5 estrellas">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>
+                            "El viaje familiar a Japón superó todas nuestras expectativas. Los chicos quedaron fascinados y nosotros también. El guía local fue extraordinario."
+                        </blockquote>
+                        <div class="testimonial-avatar" aria-hidden="true">PF</div>
+                        <p class="testimonial-author">Paula y Diego Ferreyra</p>
+                        <p class="testimonial-detail">Familia — Tokio y Kioto</p>
+                    </article>
+                    <article class="testimonial-card reveal">
+                        <div class="testimonial-stars" aria-label="Calificación de 5 estrellas">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>
+                            "Hice el trekking en la Patagonia chilena con el grupo de aventura. Una experiencia de vida que no podría haber organizado mejor solo. 100% recomendable."
+                        </blockquote>
+                        <div class="testimonial-avatar" aria-hidden="true">SM</div>
+                        <p class="testimonial-author">Santiago Morales</p>
+                        <p class="testimonial-detail">Torres del Paine</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECCIÓN 6: FORMULARIO DE CONTACTO (Maquetado visual) ========== -->
+        <section class="section section-center contacto-seccion" id="contacto">
+            <div class="container">
+                <span class="section-badge">Contacto</span>
+                <h2 class="section-title">Planeá tu próximo viaje</h2>
+                <p class="section-subtitle">Completá el formulario y un asesor de viajes se contacta con vos en menos de 24 horas.</p>
+
+                <form class="contact-form" id="contact-form" novalidate>
+                    <div class="form-group">
+                        <label for="contact-name">Nombre completo</label>
+                        <input type="text" id="contact-name" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" name="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-destino">Destino de interés</label>
+                        <input type="text" id="contact-destino" name="destino" placeholder="¿A dónde soñás ir?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-viajeros">Cantidad de viajeros</label>
+                        <select id="contact-viajeros" name="viajeros" required>
+                            <option value="" disabled selected>Seleccioná una opción</option>
+                            <option value="1">1 persona</option>
+                            <option value="2">2 personas</option>
+                            <option value="3-5">3–5 personas</option>
+                            <option value="6+">Grupo de +6</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-mensaje">Mensaje</label>
+                        <textarea id="contact-mensaje" name="mensaje" rows="4" placeholder="Contanos más sobre el viaje que tenés en mente..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Enviar Consulta <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </form>
+
+                <div class="contact-success" id="contact-success">
+                    <div class="contact-success-icon" aria-hidden="true">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <p>✓ ¡Consulta recibida! Te contactamos pronto. ¡Buen viaje! ✈</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== SECCIÓN 7: PIE DE PÁGINA ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-brand">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="16" cy="16" r="14" stroke="var(--color-accent)" stroke-width="2"/>
+                            <circle cx="16" cy="16" r="11" stroke="var(--color-accent)" stroke-width="1" stroke-dasharray="2 2"/>
+                            <path d="M16 4L19 13L16 16L13 13Z" fill="var(--color-accent)"/>
+                            <path d="M16 28L13 19L16 16L19 19Z" fill="var(--color-primary)"/>
+                            <circle cx="16" cy="16" r="2" fill="var(--color-text)"/>
+                        </svg>
+                        <span>Nómada Viajes</span>
+                    </div>
+                    <p class="footer-slogan">Cada destino, una historia.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter / X">
+                            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Destinos</h4>
+                    <ul>
+                        <li><a href="#">Europa</a></li>
+                        <li><a href="#">Asia</a></li>
+                        <li><a href="#">América</a></li>
+                        <li><a href="#">Oceanía</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Paquetes</a></li>
+                        <li><a href="#">Aventura</a></li>
+                        <li><a href="#">Cruceros</a></li>
+                        <li><a href="#">Grupos</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Agencia</h4>
+                    <ul>
+                        <li><a href="#nosotros">Sobre Nosotros</a></li>
+                        <li><a href="#">Blog de Viajes</a></li>
+                        <li><a href="#">Trabajá con Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="footer-divider" aria-hidden="true">
+
+            <div class="footer-bottom">
+                &copy; 2026 Nómada Viajes. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            /* ========== NAVBAR SCROLL TRANSITION ========== */
+            var header = document.querySelector('.header');
+            var scrollThreshold = 60;
+
+            function handleScroll() {
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            /* ========== HAMBURGER MENU ========== */
+            var hamburger = document.getElementById('hamburger');
+            var nav = document.getElementById('main-nav');
+            var hamburgerIcon = hamburger.querySelector('span');
+            var navLinks = nav.querySelectorAll('a');
+
+            function toggleMenu() {
+                var isActive = nav.classList.toggle('activo');
+                hamburgerIcon.textContent = isActive ? '✕' : '☰';
+                hamburger.setAttribute('aria-expanded', isActive);
+                hamburger.setAttribute('aria-label', isActive ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+            }
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            // Close menu on link click (mobile viewport)
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (nav.classList.contains('activo')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Close menu on click outside header
+            document.addEventListener('click', function(e) {
+                if (nav.classList.contains('activo') && !header.contains(e.target)) {
+                    toggleMenu();
+                }
+            });
+
+            /* ========== ACTIVE NAVBAR LINK ON SCROLL ========== */
+            var sections = document.querySelectorAll('section[id], header[id]');
+            var navLinksArray = Array.from(navLinks);
+
+            function highlightNav() {
+                var scrollPosition = window.scrollY + 120;
+
+                sections.forEach(function(section) {
+                    var top = section.offsetTop;
+                    var height = section.offsetHeight;
+                    var id = section.getAttribute('id');
+
+                    if (scrollPosition >= top && scrollPosition < top + height) {
+                        navLinksArray.forEach(function(link) {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', highlightNav, { passive: true });
+            highlightNav();
+
+            /* ========== SCROLL REVEAL (IntersectionObserver) ========== */
+            var revealElements = document.querySelectorAll('.reveal');
+
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+
+            /* ========== COUNTER ANIMATION WITH LOCAL FORMATTING ========== */
+            var statNumbers = document.querySelectorAll('.stat-number');
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function animateCounter(el) {
+                var target = parseInt(el.getAttribute('data-target'), 10);
+                var prefix = el.getAttribute('data-prefix') || '';
+                var suffix = el.getAttribute('data-suffix') || '';
+                var duration = 1500;
+                var startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var elapsed = timestamp - startTime;
+                    var progress = Math.min(elapsed / duration, 1);
+                    var easedProgress = easeOutCubic(progress);
+                    var current = Math.round(easedProgress * target);
+
+                    // Formato regional en español para separador de miles (dot)
+                    el.textContent = prefix + current.toLocaleString('es-AR') + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        el.textContent = prefix + target.toLocaleString('es-AR') + suffix;
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            var counterObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var target = entry.target;
+                        if (!target.dataset.animated) {
+                            target.dataset.animated = 'true';
+                            animateCounter(target);
+                        }
+                        counterObserver.unobserve(target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            statNumbers.forEach(function(el) {
+                counterObserver.observe(el);
+            });
+
+            /* ========== FORM VALIDATION & SUCCESS SUBMISSION ========== */
+            var form = document.getElementById('contact-form');
+            var successBlock = document.getElementById('contact-success');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                var inputs = form.querySelectorAll('input, select, textarea');
+                var isValid = true;
+
+                inputs.forEach(function(input) {
+                    // Simple email check
+                    if (input.type === 'email') {
+                        var emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailReg.test(input.value.trim())) {
+                            isValid = false;
+                            input.classList.add('error');
+                        } else {
+                            input.classList.remove('error');
+                        }
+                    } else {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            input.classList.add('error');
+                        } else {
+                            input.classList.remove('error');
+                        }
+                    }
+
+                    // Reset error indicator when typing/changing
+                    input.addEventListener('input', function() {
+                        input.classList.remove('error');
+                    });
+                    input.addEventListener('change', function() {
+                        input.classList.remove('error');
+                    });
+                });
+
+                if (isValid) {
+                    form.classList.add('hidden');
+                    successBlock.classList.add('visible');
+                    // Scroll into view of the section title for accessibility & confirmation notice
+                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

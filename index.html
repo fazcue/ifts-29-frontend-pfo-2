@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFO 2 — Prompt Engineering en Agentes de IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0C1B26;
+            color: #F2F7F5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 24px;
+        }
+        .card {
+            background: #112233;
+            border: 1px solid #1C3040;
+            border-radius: 16px;
+            padding: 48px 40px;
+            max-width: 620px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            color: #85AEAD;
+            font-size: 0.9375rem;
+            font-weight: 400;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .divider {
+            border: none;
+            border-top: 1px solid #1C3040;
+            margin: 24px 0;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .links a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: 1px solid #1C3040;
+            background: #0C1B26;
+            color: #F2F7F5;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .links a:hover {
+            border-color: #1A6B5A;
+            background: rgba(26, 107, 90, 0.1);
+            transform: translateY(-1px);
+        }
+        .links a .meta {
+            color: #85AEAD;
+            font-size: 0.75rem;
+            font-weight: 400;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .links a .arrow {
+            color: #F4A261;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: linear-gradient(#112233, #112233) padding-box,
+                        linear-gradient(135deg, #1A6B5A, #F4A261) border-box;
+            border: 1px solid transparent;
+            color: #F4A261;
+            margin-bottom: 16px;
+        }
+        .footer-text {
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: #85AEAD;
+        }
+        .footer-text a {
+            color: #85AEAD;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .footer-text a:hover {
+            color: #F4A261;
+        }
+        @media (max-width: 480px) {
+            .card { padding: 32px 20px; }
+            h1 { font-size: 1.35rem; }
+            .links a { flex-wrap: wrap; }
+            .links a .meta { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="badge">PFO 2 · 2026</span>
+        <h1>Prompt Engineering<br>en Agentes de IA</h1>
+        <p class="subtitle">Instituto de Formación Técnica Superior (IFTS)&nbsp;·&nbsp;Frontend</p>
+
+        <hr class="divider">
+
+        <div class="links">
+            <a href="docs/prompt.md" target="_blank">
+                <span>📄 Prompt utilizado</span>
+                <span class="meta">texto plano</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="opencode/index.html" target="_blank">
+                <span>🌍 OpenCode</span>
+                <span class="meta">deepseek-v4-flash-free</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="codex/index.html" target="_blank">
+                <span>🤖 Codex (OpenAI)</span>
+                <span class="meta">gpt-5.5</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <hr class="divider">
+
+        <div class="footer-text">
+            Facundo Azcue &middot;
+            <a href="https://github.com/fazcue/ifts-29-frontend-pfo-2" target="_blank">GitHub</a>
+        </div>
+    </div>
+</body>
+</html>
