@@ -11,7 +11,6 @@
 | Campo        | Detalle                              |
 |-------------|--------------------------------------|
 | **Nombre**  | Facundo Azcue                        |
-| **Email**   | fazcue@gmail.com                     |
 | **GitHub**  | [@fazcue](https://github.com/fazcue) |
 | **Repositorio** | [ifts-29-frontend-pfo-2](https://github.com/fazcue/ifts-29-frontend-pfo-2) |
 
