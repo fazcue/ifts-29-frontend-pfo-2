@@ -38,7 +38,6 @@ Implementá exactamente estas 7 secciones en este orden. Cada una debe estar com
 ──────────────────────────────────────────
 SECCIÓN 1 — CABECERA (Header con menú de navegación)
 ──────────────────────────────────────────
-Requisito del PDF: Header con menú de navegación.
 
 - Barra fija (position: fixed) en la parte superior, z-index elevado.
 - Transición al hacer scroll (> 60px): agregar backdrop-filter: blur(10px), fondo semitransparente y sombra inferior sutil.
@@ -50,7 +49,6 @@ Requisito del PDF: Header con menú de navegación.
 ──────────────────────────────────────────
 SECCIÓN 2 — HERO SECTION (Sección principal con título impactante y CTA)
 ──────────────────────────────────────────
-Requisito del PDF: Hero Section con título impactante y botón de llamada a la acción.
 
 - Altura: 100vh. Contenido centrado verticalmente y horizontalmente.
 - Píldora / badge sobre el título: "✦ Experiencias de viaje a medida desde 2009" con borde degradado verde y naranja.
@@ -65,7 +63,6 @@ Requisito del PDF: Hero Section con título impactante y botón de llamada a la 
 ──────────────────────────────────────────
 SECCIÓN 3 — DESCRIPCIÓN / SOBRE NOSOTROS
 ──────────────────────────────────────────
-Requisito del PDF: Descripción / Sobre Nosotros.
 
 - Título H2: "Quiénes somos"
 - Párrafo principal (2–3 oraciones, max-width 700px, centrado): descripción de la agencia, su filosofía de viaje personalizado y sus años de experiencia.
@@ -80,7 +77,6 @@ Requisito del PDF: Descripción / Sobre Nosotros.
 ──────────────────────────────────────────
 SECCIÓN 4 — SECCIÓN DE SERVICIOS O CARACTERÍSTICAS PRINCIPALES
 ──────────────────────────────────────────
-Requisito del PDF: Sección de Servicios o Características principales.
 
 - Título H2: "Nuestros Servicios"
 - Subtítulo: "Todo lo que necesitás para un viaje sin preocupaciones."
@@ -98,7 +94,6 @@ Requisito del PDF: Sección de Servicios o Características principales.
 ──────────────────────────────────────────
 SECCIÓN 5 — TESTIMONIOS O RESEÑAS DE CLIENTES
 ──────────────────────────────────────────
-Requisito del PDF: Testimonios o Reseñas de clientes.
 
 - Título H2: "Lo que dicen nuestros viajeros"
 - Tres tarjetas de testimonio en fila responsive (columna en mobile):
@@ -112,7 +107,6 @@ Requisito del PDF: Testimonios o Reseñas de clientes.
 ──────────────────────────────────────────
 SECCIÓN 6 — FORMULARIO DE CONTACTO (Maquetado visual)
 ──────────────────────────────────────────
-Requisito del PDF: Formulario de contacto (maquetado visual, sin funcionalidad backend).
 
 - Título H2: "Planeá tu próximo viaje"
 - Subtítulo: "Completá el formulario y un asesor de viajes se contacta con vos en menos de 24 horas."
@@ -131,7 +125,6 @@ Requisito del PDF: Formulario de contacto (maquetado visual, sin funcionalidad b
 ──────────────────────────────────────────
 SECCIÓN 7 — PIE DE PÁGINA (Footer con enlaces a redes sociales)
 ──────────────────────────────────────────
-Requisito del PDF: Pie de página con enlaces a redes sociales.
 
 - Fondo: #060E15 (más oscuro que el fondo base).
 - Layout multi-columna (2 columnas en mobile, 4 en desktop):
